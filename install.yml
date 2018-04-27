@@ -5,6 +5,7 @@
   tags: packages
 
 - hosts: all
+  gather_facts: no
   tasks:
     - package:
         name: "{{ item }}"
@@ -14,26 +15,31 @@
   tags: packages
 
 - hosts: all
+  gather_facts: no
   roles:
     - python
   tags: packages
 
 - hosts: docker
+  gather_facts: no
   roles:
     - docker
   tags: docker
 
 - hosts: microproxy
+  gather_facts: no
   roles:
     - microproxy
   tags: microproxy
 
 - hosts: shadowproxy
+  gather_facts: no
   roles:
     - shadowproxy
   tags: shadowproxy
 
 - hosts: simplestsock
+  gather_facts: no
   roles:
     - simplestsock
   tags: simplestsock
