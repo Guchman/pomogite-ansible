@@ -1,0 +1,4 @@
+python_install_2: no
+python_apt_packages_3:
+  - python
+  - python-pip

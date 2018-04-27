@@ -1,0 +1,19 @@
+- name: remove shadowproxy
+  docker_container:
+    name: "{{ container_name }}"
+    state: absent
+  when: state == "absent"
+
+- name: start microproxy container
+  docker_container:
+     ports:
+       - "{{ proxy_port }}:3128"
+     name: "{{ container_name }}"
+     image: shkrid/docker-microproxy
+     state: started
+     env:
+       MP_USER: "{{ proxy_login }}"
+       MP_PASS: "{{ proxy_pass }}"
+     restart: yes
+     restart_policy: unless-stopped
+  when: state == "started"

@@ -1,0 +1,7 @@
+dns_1: "1.1.1.1"
+dns_2: "8.8.8.8"
+proxy_port: 3129
+
+shadowproxy_container_name: "shadow"
+
+state: started

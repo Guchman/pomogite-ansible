@@ -1,0 +1,24 @@
+- name: remove shadowproxy
+  docker_container:
+    name: "{{shadowproxy_container_name}}"
+    state: absent
+  when: state == "absent"
+
+- name: start shadowproxy container
+  docker_container:
+     ports:
+         - "443:443"
+         - "993:993"
+         - "53:53/udp"
+     name: "{{ shadowproxy_container_name }}"
+     image: realpaul/docker-shadowsocks:2.8.2
+     state: started
+     env:
+        KCPTUN_OVER_OBFS: true
+        SHADOWSOCKS_PASSWORD: "{{ proxy_pass }}"
+        SHADOWSOCKS_PORT: 1080
+#       DNS_ADDR_1: "{{ dns_1 }}"
+#       DNS_ADDR_2: "{{ dns_2 }}"
+     restart: yes
+     restart_policy: unless-stopped
+  when: state == "started"

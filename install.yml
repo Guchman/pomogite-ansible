@@ -1,0 +1,39 @@
+
+- hosts: all
+  roles:
+    - repos
+  tags: packages
+
+- hosts: all
+  tasks:
+    - package:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - "python-pip"
+  tags: packages
+
+- hosts: all
+  roles:
+    - python
+  tags: packages
+
+- hosts: docker
+  roles:
+    - docker
+  tags: docker
+
+- hosts: microproxy
+  roles:
+    - microproxy
+  tags: microproxy
+
+- hosts: shadowproxy
+  roles:
+    - shadowproxy
+  tags: shadowproxy
+
+- hosts: simplestsock
+  roles:
+    - simplestsock
+  tags: simplestsock

@@ -1,0 +1,19 @@
+- name: remove shadowproxy
+  docker_container:
+    name: "{{ container_name }}"
+    state: absent
+  when: state == "absent"
+
+- name: start shadowproxy container
+  docker_container:
+     ports:
+         - "{{ proxy_port }}:1080"
+     name: "{{ container_name }}"
+     image: serjs/go-socks5-proxy:v0.0.1
+     state: started
+     env:
+        PROXY_PASSWORD: "{{ proxy_pass }}"
+        PROXY_USER: "{{ proxy_user }}"
+     restart: yes
+     restart_policy: unless-stopped
+  when: state == "started"
